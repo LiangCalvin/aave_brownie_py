@@ -8,7 +8,9 @@ dotenv: .env
 networks:
   sepolia:
     weth_token: "0xfff9976782d46cc05630d1f6ebab18b2324d6b14"
+    lending_pool_address_provider: "0x012bAC54348C0E635dCAc9D5FB99f06F24136C9A"
   mainnet-fork:
     weth_token: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
+    lending_pool_address_provider: "0xB53C1a33016B2DC2fF3653530bfF1848a515c8c5"
 wallets:
   from_key: ${PRIVATE_KEY}
