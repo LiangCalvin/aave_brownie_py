@@ -3,12 +3,13 @@ from web3 import Web3
 from scripts.get_weth import get_weth
 from scripts.helpful_scripts import get_account
 
+amount = Web3.to_wei(0.1, "ether")
 def main():
     """
     Main function to execute the Aave borrowing script.
     """
     # Initialize the Aave contract
-    contract = get_account()
+    account = get_account()
     erc20_address = config["networks"][network.show_active()]["weth_token"]
 
     if network.show_active() in ["mainnet-fork"]:
@@ -17,7 +18,19 @@ def main():
     # Address
     lending_pool = get_lending_pool()
     print(lending_pool)
-    
+    # Approve sending out ERC20 tokens
+    approve_erc20(amount, lending_pool.address, erc20_address, account)
+
+def approve_erc20(amount, spender, erc20_address, account):
+    print("Approving ERC20 token...")
+    erc20 = interface.IERC20(erc20_address)
+    tx = erc20.approve(spender, amount, {"from": account})
+    tx.wait(1)
+    print("Approved!")
+    return tx
+    # ABI
+    # Address
+
 def get_lending_pool():
     # ABI
     # Address
@@ -27,14 +40,3 @@ def get_lending_pool():
     lending_pool_address = lending_pool_addresses_provider.getLendingPool()
     lending_pool = interface.ILendingPool(lending_pool_address)
     return lending_pool
-    
-    # # Define the asset and amount to borrow
-    # asset = "DAI"
-    # amount = 1000  # Amount in DAI
-
-    # # Execute the borrow operation
-    # try:
-    #     tx_hash = aave_contract.borrow(asset, amount)
-    #     print(f"Borrow transaction successful with hash: {tx_hash}")
-    # except Exception as e:
-    #     print(f"An error occurred while borrowing: {e}")
