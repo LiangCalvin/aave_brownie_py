@@ -6,6 +6,7 @@ compiler:
       - "@aave=aave/protocol-v2@1.0.1"
 dotenv: .env
 networks:
+  default: mainnet-fork
   sepolia:
     weth_token: "0xfff9976782d46cc05630d1f6ebab18b2324d6b14"
     lending_pool_address_provider: "0x012bAC54348C0E635dCAc9D5FB99f06F24136C9A"
